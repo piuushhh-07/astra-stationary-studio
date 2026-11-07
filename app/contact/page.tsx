@@ -1,9 +1,6 @@
-"use client";
-
-import { useState } from "react";
+import ContactForm from "@/components/ContactForm";
 
 export default function ContactPage() {
-  const [submitted, setSubmitted] = useState(false);
   return (
     <section className="contact-page">
       <div className="page-title"><p className="eyebrow">Customer care</p><h1>Contact the studio</h1></div>
@@ -14,14 +11,7 @@ export default function ContactPage() {
           <div className="contact-map">Google Maps placeholder</div>
           <a className="whatsapp" href="https://wa.me/" target="_blank" rel="noreferrer">Chat on WhatsApp</a>
         </div>
-        <form className="contact-form" onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}>
-          <label>Name<input name="name" type="text" required placeholder="Your name" /></label>
-          <label>Email<input name="email" type="email" required placeholder="your@email.com" /></label>
-          <label>Phone<input name="phone" type="tel" placeholder="+91" /></label>
-          <label>Message<textarea name="message" required placeholder="How can we help?" /></label>
-          <button className="button button-dark">Send enquiry</button>
-          {submitted && <p role="status" className="form-success">Thank you. Your enquiry is ready for the Astra team.</p>}
-        </form>
+        <ContactForm />
       </div>
     </section>
   );
