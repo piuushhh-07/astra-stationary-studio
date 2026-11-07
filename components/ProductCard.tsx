@@ -32,7 +32,6 @@ export function ProductCard({ product }: { product: Product }) {
           <div><Link href={`/product/${product.slug}`}><h3>{product.name}</h3></Link><p>{product.category}</p></div>
           <span>{formatPrice(product.price)}</span>
         </div>
-        {product.stock < 5 && <small className="low-stock">Only {product.stock} remaining</small>}
       </article>
       {quickView && (
         <div className="modal-backdrop" role="presentation" onMouseDown={() => setQuickView(false)}>

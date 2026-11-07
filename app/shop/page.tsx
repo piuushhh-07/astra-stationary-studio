@@ -28,6 +28,7 @@ function ShopContent() {
   return (
     <section className="shop-page">
       <div className="page-title"><p className="eyebrow">The collection</p><h1>Stationery for considered living</h1></div>
+      <p className="catalogue-note">A considered edit of writing instruments, paper goods, desk pieces and gifts. Product examples and prices shown are illustrative and must be confirmed with the studio.</p>
       <div className="shop-toolbar">
         <label className="sr-only" htmlFor="product-search">Search products</label>
         <input id="product-search" type="search" placeholder="Search the collection" value={query} onChange={(e) => setQuery(e.target.value)} />
@@ -38,6 +39,7 @@ function ShopContent() {
       <div className="category-filters" aria-label="Product categories">
         {categories.map((item) => <button key={item} className={category === item ? "active" : ""} onClick={() => setSelectedCategory(item)}>{item}</button>)}
       </div>
+      <div className="collection-count">{filtered.length} pieces in this edit</div>
       <div className="product-grid">
         {filtered.length ? filtered.map((product) => <ProductCard key={product.id} product={product} />) : <div className="no-results"><h2>No pieces found</h2><p>Try another search or category.</p></div>}
       </div>
