@@ -454,7 +454,13 @@ body { background:#fff; color:var(--charcoal); letter-spacing:.005em; }
 .shop-page .product-grid { row-gap:48px; }
 .page-title h1 { font-size:clamp(42px,5vw,66px); letter-spacing:-.035em; }
 @media (max-width:900px) {
-  .hero.hero-video { padding:56px 24px 42px; gap:34px; }
+  .hero.hero-video {
+    grid-template-columns:minmax(0,1fr);
+    padding:56px 24px 42px;
+    gap:34px;
+  }
+  .hero-video .hero-content { min-width:0; width:100%; max-width:620px; }
+  .hero-video h1 { max-width:620px; }
   .hero-video-frame { width:min(100%,410px); height:min(600px,125vw); min-height:410px; }
   .story-section { grid-template-columns:1fr; }
   .story-image { min-height:0; height:65vw; max-height:620px; }
@@ -467,8 +473,21 @@ body { background:#fff; color:var(--charcoal); letter-spacing:.005em; }
 @media (max-width:600px) {
   .announcement { padding-inline:10px; text-align:center; font-size:8px; letter-spacing:.13em; }
   .header { height:72px; }
-  .hero.hero-video { padding:42px 18px 30px; }
-  .hero-video h1 { font-size:clamp(47px,12vw,64px); }
+  .hero.hero-video {
+    grid-template-columns:minmax(0,1fr);
+    gap:28px;
+    padding:42px 18px 30px;
+    background:linear-gradient(180deg,#D8F0F0 0%,#EEF9F8 68%,#F8EDEF 100%);
+  }
+  .hero-video h1 { font-size:clamp(43px,12vw,58px); line-height:.96; }
+  .hero-video .hero-content > p:not(.eyebrow) {
+    max-width:420px;
+    margin:18px 0 22px;
+    line-height:1.65;
+  }
+  .hero-video .hero-actions { gap:12px 16px; }
+  .hero-video .hero-actions .button { min-height:48px; }
+  .hero-video .hero-actions .text-link { min-height:48px; }
   .hero-video .hero-content > p:not(.eyebrow) { font-size:14px; }
   .hero-video-frame { width:min(100%,350px); height:500px; min-height:0; border-width:7px; border-radius:180px 180px 10px 10px; }
   .category-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; }
@@ -721,8 +740,8 @@ img, video, canvas, svg { max-width: 100%; }
 .shop-toolbar input, .contact-form input, .contact-form textarea, .newsletter form input { min-width: 0; }
 @media (max-width: 375px) {
   .hero-video.hero { padding-inline: 14px; }
-  .hero-video-frame { height: 430px; }
-  .hero-video h1 { font-size: 43px; }
+  .hero-video-frame { width:100%; height:430px; }
+  .hero-video h1 { font-size: clamp(39px,12vw,43px); line-height:.98; }
   .hero-video .hero-actions { gap: 12px; }
   .section, .shop-page, .product-page, .cart-page, .about-page, .contact-page, .studio-video-section { width: calc(100% - 28px); }
   .header { padding-inline: 10px; }
@@ -740,7 +759,7 @@ img, video, canvas, svg { max-width: 100%; }
 }
 @media (max-width: 320px) {
   .hero-video h1 { font-size: 39px; }
-  .hero-video-frame { height: 390px; }
+  .hero-video-frame { width:100%; height:390px; }
   .product-grid { gap: 18px 8px; }
   .category-card > div { padding-inline: 10px; }
 }
