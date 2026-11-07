@@ -23,7 +23,7 @@ export default function CartPage() {
   const lines = cart.map((item) => ({ ...item, product: products.find((product) => product.id === item.id) })).filter((line) => line.product);
   const subtotal = lines.reduce((sum, line) => sum + (line.product?.price || 0) * line.quantity, 0);
 
-  if (!cart.length || !lines.length) return <section className="cart-page"><div className="empty-cart"><div><h1>Your bag is empty</h1><p>Discover objects for writing, keeping, and gifting.</p><Link href="/shop" className="button button-dark">Explore collection</Link></div></div></section>;
+  if (!cart.length || !lines.length) return <section className="cart-page"><div className="empty-cart"><div className="empty-cart-mark" aria-hidden="true">A</div><p className="eyebrow">Shopping bag</p><h1>Room for something considered.</h1><p>Discover objects for writing, keeping, and gifting.</p><Link href="/shop" className="button button-dark">Explore the collection</Link></div></section>;
 
   return (
     <section className="cart-page">

@@ -12,6 +12,7 @@ export function ProductCard({ product }: { product: Product }) {
           <Image src={product.image} alt={`${product.name} product view`} fill sizes="(max-width: 600px) 50vw, (max-width: 900px) 50vw, 25vw" className="product-image" />
         </Link>
         {product.isNew && <span className="product-tag">New</span>}
+        <span className="illustrative-image-note">Illustrative image</span>
         <ProductQuickView product={product} />
       </div>
       <div className="product-meta">

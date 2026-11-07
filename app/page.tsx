@@ -5,6 +5,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { ArrowIcon } from "@/components/icons";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { HeroVideo } from "@/components/HeroVideo";
+import { StudioVideo } from "@/components/StudioVideo";
 import Image from "next/image";
 
 export default function Home() {
@@ -45,6 +46,7 @@ export default function Home() {
         <div className="story-copy"><p className="eyebrow">Our philosophy</p><h2>Objects that make the everyday feel considered.</h2><p>At Astra, we believe writing instruments and desk objects should be chosen with intention. Our collections bring together tactile materials, enduring design, and quiet beauty.</p><Link href="/about" className="text-link">Our story <ArrowIcon /></Link></div>
       </section>
 
+      <StudioVideo />
 
       <section className="showcase">
         <Image src={images.premiumPens} alt="Luxury fountain pen detail" fill sizes="100vw" />
@@ -54,6 +56,41 @@ export default function Home() {
       <section className="lifestyle-section">
         <div><p className="eyebrow">The Astra way</p><h2>Pause. Put pen to paper.</h2></div>
         <Image src={images.lifestyle} alt="Quiet desk scene with notebook and pen" fill sizes="(max-width: 900px) 65vw, 60vw" />
+      </section>
+
+      <section className="editorial-collage section" aria-label="Astra stationery moments">
+        <div className="editorial-collage-copy">
+          <p className="eyebrow">Paper, ink & intention</p>
+          <h2>A workspace shaped by the tools you love.</h2>
+          <p>Build a desk routine around tactile paper, balanced writing instruments, and objects that invite you to slow down.</p>
+          <Link href="/shop" className="text-link">Explore stationery <ArrowIcon /></Link>
+        </div>
+        <div className="collage-grid">
+          <div className="collage-primary"><Image src={images.lifestyle} alt="Illustrative writing desk scene" fill sizes="(max-width: 900px) 70vw, 48vw" /><span>Illustrative lifestyle image</span></div>
+          <div className="collage-secondary"><Image src={images.notebook} alt="Illustrative notebook close-up" fill sizes="(max-width: 900px) 32vw, 24vw" /><span>Illustrative product styling</span></div>
+          <div className="collage-tertiary"><Image src={images.premiumPens} alt="Illustrative pen collection styling" fill sizes="(max-width: 900px) 32vw, 24vw" /><span>Illustrative product styling</span></div>
+        </div>
+      </section>
+
+      <section className="gallery-preview section" aria-labelledby="gallery-preview-title">
+        <div className="section-heading">
+          <div><p className="eyebrow">From the studio</p><h2 id="gallery-preview-title">Seven moments, one creative space</h2></div>
+          <Link href="/gallery" className="text-link">View all videos <ArrowIcon /></Link>
+        </div>
+        <div className="gallery-preview-grid">
+          {[
+            ["/images/astra-studio-poster.jpg", "Inside the studio"],
+            ["/images/gallery/VID-20261107-WA0034.jpg", "Display details"],
+            ["/images/gallery/VID-20261107-WA0037.jpg", "Writing instruments"],
+            ["/images/gallery/VID-20261107-WA0040.jpg", "A wider view"],
+          ].map(([image, title]) => (
+            <Link href="/gallery" className="gallery-preview-card" key={title}>
+              <Image src={image} alt={`${title} from the Astra studio`} fill sizes="(max-width: 600px) 50vw, 25vw" />
+              <span className="gallery-preview-play" aria-hidden="true">▶</span>
+              <span>{title}</span>
+            </Link>
+          ))}
+        </div>
       </section>
 
       <section className="values section">
@@ -72,6 +109,14 @@ export default function Home() {
         <h2>A quieter kind of newsletter.</h2>
         <p>Occasional notes on writing, craft, and new arrivals.</p>
         <NewsletterForm />
+      </section>
+
+      <section className="final-shopping-cta">
+        <div>
+          <p className="eyebrow">Find your next everyday favourite</p>
+          <h2>Writing tools with purpose.</h2>
+        </div>
+        <Link href="/shop" className="button button-light">Shop the collection</Link>
       </section>
 
     </>

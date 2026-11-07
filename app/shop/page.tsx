@@ -27,7 +27,10 @@ function ShopContent() {
 
   return (
     <section className="shop-page">
-      <div className="page-title"><p className="eyebrow">The collection</p><h1>Stationery for considered living</h1></div>
+      <div className="shop-hero">
+        <div><p className="eyebrow">The Astra collection</p><h1>Stationery for considered living</h1></div>
+        <p>A tactile edit of writing instruments, paper goods, desk pieces and gifts.</p>
+      </div>
       <p className="catalogue-note">A considered edit of writing instruments, paper goods, desk pieces and gifts. Product examples and prices shown are illustrative and must be confirmed with the studio.</p>
       <div className="shop-toolbar">
         <label className="sr-only" htmlFor="product-search">Search products</label>

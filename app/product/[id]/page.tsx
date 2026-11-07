@@ -43,6 +43,7 @@ function ProductContent() {
       <div className="product-detail">
         <div className="product-gallery">
           {product.images.map((image, index) => (
+            <div className="product-gallery-image" key={image}>
             <Image
               key={image}
               src={image}
@@ -52,6 +53,8 @@ function ProductContent() {
               sizes="(max-width: 900px) 100vw, 58vw"
               priority={index === 0}
             />
+            <span>Illustrative product styling</span>
+            </div>
           ))}
         </div>
         <div className="product-info">
