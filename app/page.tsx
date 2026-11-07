@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { images } from "@/data/images";
 import { products } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
 import { ArrowIcon } from "@/components/icons";
@@ -9,14 +8,12 @@ import { StudioVideo } from "@/components/StudioVideo";
 import Image from "next/image";
 
 export default function Home() {
-  const featured = products.filter((product) => product.featured).slice(0, 8);
+  const featured = products.filter((product) => product.featured).slice(0, 4);
   const categories = [
-    ["Premium Pens", images.premiumPens],
-    ["Notebooks & Journals", images.notebook],
-    ["Desk Accessories", images.desk],
-    ["Gift Collections", images.stationery],
-    ["Art Supplies", images.notebook],
-    ["Planning & Organisation", images.desk],
+    ["Premium Pens", "/images/gallery/VID-20261107-WA0037.jpg", "Writing instruments"],
+    ["Notebooks & Journals", "/images/gallery/VID-20261107-WA0036.jpg", "Paper and journals"],
+    ["Desk Accessories", "/images/gallery/VID-20261107-WA0034.jpg", "A considered workspace"],
+    ["Gift Collections", "/images/astra-studio-poster.jpg", "Studio selections"],
   ];
 
   return (
@@ -26,10 +23,10 @@ export default function Home() {
       <section className="section categories-section">
         <div className="section-heading"><div><p className="eyebrow">Curated selections</p><h2>Discover your essentials</h2></div><Link href="/shop" className="text-link">View all <ArrowIcon /></Link></div>
         <div className="category-grid">
-          {categories.map(([name, image]) => (
-            <Link href={`/shop?category=${encodeURIComponent(name)}`} className="category-card" key={name}>
+          {categories.map(([name, image, note], index) => (
+            <Link href={`/shop?category=${encodeURIComponent(name)}`} className={`category-card category-card-${index + 1}`} key={name}>
               <Image src={image} alt={name} fill sizes="(max-width: 520px) 50vw, (max-width: 900px) 50vw, 25vw" />
-              <div><span>{name}</span><ArrowIcon /></div>
+              <div><span><small>{note}</small>{name}</span><ArrowIcon /></div>
             </Link>
           ))}
         </div>
@@ -41,21 +38,23 @@ export default function Home() {
         <div className="section-action"><Link href="/shop" className="button button-outline">View all products</Link></div>
       </section>
 
+      <div className="studio-story">
       <section className="story-section">
-        <div className="story-image"><Image src={images.studio} alt="Refined creative studio interior" fill sizes="(max-width: 900px) 100vw, 56vw" /></div>
+        <div className="story-image"><Image src="/images/gallery/VID-20261107-WA0040.jpg" alt="Wide view of the Astra stationery studio" fill sizes="(max-width: 900px) 100vw, 56vw" /></div>
         <div className="story-copy"><p className="eyebrow">Our philosophy</p><h2>Objects that make the everyday feel considered.</h2><p>At Astra, we believe writing instruments and desk objects should be chosen with intention. Our collections bring together tactile materials, enduring design, and quiet beauty.</p><Link href="/about" className="text-link">Our story <ArrowIcon /></Link></div>
       </section>
 
       <StudioVideo />
+      </div>
 
       <section className="showcase">
-        <Image src={images.premiumPens} alt="Luxury fountain pen detail" fill sizes="100vw" />
+        <Image src="/images/gallery/VID-20261107-WA0039.jpg" alt="Astra studio sign and interior" fill sizes="100vw" />
         <div><p className="eyebrow">Writing instruments</p><h2>Made for the movement of your hand.</h2><p>From smooth fountain pens to finely balanced everyday writers, each instrument is selected for comfort, precision, and lasting character.</p><Link href="/shop?category=Premium%20Pens" className="button button-light">Explore writing instruments</Link></div>
       </section>
 
       <section className="lifestyle-section">
         <div><p className="eyebrow">The Astra way</p><h2>Pause. Put pen to paper.</h2></div>
-        <Image src={images.lifestyle} alt="Quiet desk scene with notebook and pen" fill sizes="(max-width: 900px) 65vw, 60vw" />
+        <Image src="/images/gallery/VID-20261107-WA0036.jpg" alt="A closer view of the Astra stationery studio" fill sizes="(max-width: 900px) 65vw, 60vw" />
       </section>
 
       <section className="editorial-collage section" aria-label="Astra stationery moments">
@@ -66,9 +65,9 @@ export default function Home() {
           <Link href="/shop" className="text-link">Explore stationery <ArrowIcon /></Link>
         </div>
         <div className="collage-grid">
-          <div className="collage-primary"><Image src={images.lifestyle} alt="Illustrative writing desk scene" fill sizes="(max-width: 900px) 70vw, 48vw" /><span>Illustrative lifestyle image</span></div>
-          <div className="collage-secondary"><Image src={images.notebook} alt="Illustrative notebook close-up" fill sizes="(max-width: 900px) 32vw, 24vw" /><span>Illustrative product styling</span></div>
-          <div className="collage-tertiary"><Image src={images.premiumPens} alt="Illustrative pen collection styling" fill sizes="(max-width: 900px) 32vw, 24vw" /><span>Illustrative product styling</span></div>
+          <div className="collage-primary"><Image src="/images/gallery/VID-20261107-WA0040.jpg" alt="Wide view of the Astra studio interior" fill sizes="(max-width: 900px) 70vw, 48vw" /><span>Astra studio</span></div>
+          <div className="collage-secondary"><Image src="/images/gallery/VID-20261107-WA0037.jpg" alt="Sheaffer display inside the Astra studio" fill sizes="(max-width: 900px) 32vw, 24vw" /><span>Studio display</span></div>
+          <div className="collage-tertiary"><Image src="/images/gallery/VID-20261107-WA0038.jpg" alt="LAMY collection inside the Astra studio" fill sizes="(max-width: 900px) 32vw, 24vw" /><span>Writing instruments</span></div>
         </div>
       </section>
 
@@ -81,8 +80,11 @@ export default function Home() {
           {[
             ["/images/astra-studio-poster.jpg", "Inside the studio"],
             ["/images/gallery/VID-20261107-WA0034.jpg", "Display details"],
+            ["/images/gallery/VID-20261107-WA0036.jpg", "Stationery shelves"],
             ["/images/gallery/VID-20261107-WA0037.jpg", "Writing instruments"],
-            ["/images/gallery/VID-20261107-WA0040.jpg", "A wider view"],
+            ["/images/gallery/VID-20261107-WA0038.jpg", "The LAMY collection"],
+            ["/images/gallery/VID-20261107-WA0039.jpg", "The Astra sign"],
+            ["/images/gallery/VID-20261107-WA0040.jpg", "A wider studio view"],
           ].map(([image, title]) => (
             <Link href="/gallery" className="gallery-preview-card" key={title}>
               <Image src={image} alt={`${title} from the Astra studio`} fill sizes="(max-width: 600px) 50vw, 25vw" />
@@ -100,7 +102,17 @@ export default function Home() {
       <section className="social-section">
         <div className="section-heading centered"><div><p className="eyebrow">Follow the studio</p><h2>@astrastationery</h2></div></div>
         <div className="social-grid">
-          {[images.notebook, images.stationery, images.premiumPens, images.desk, images.lifestyle].map((image, index) => <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" key={index} aria-label="View Instagram post"><Image src={image} alt="" fill sizes="(max-width: 900px) 33vw, 20vw" /></a>)}
+          {[
+            "/images/astra-studio-poster.jpg",
+            "/images/gallery/VID-20261107-WA0034.jpg",
+            "/images/gallery/VID-20261107-WA0037.jpg",
+            "/images/gallery/VID-20261107-WA0038.jpg",
+            "/images/gallery/VID-20261107-WA0040.jpg",
+          ].map((image, index) => (
+            <div className="studio-visual-card" key={image}>
+              <Image src={image} alt={`Astra studio view ${index + 1}`} fill sizes="(max-width: 900px) 33vw, 20vw" />
+            </div>
+          ))}
         </div>
       </section>
 
