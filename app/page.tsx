@@ -4,6 +4,7 @@ import { products } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
 import { ArrowIcon } from "@/components/icons";
 import { NewsletterForm } from "@/components/NewsletterForm";
+import { StudioVideo } from "@/components/StudioVideo";
 
 export default function Home() {
   const featured = products.filter((product) => product.featured).slice(0, 4);
@@ -52,6 +53,8 @@ export default function Home() {
         <div className="story-image"><img src={images.studio} alt="Refined creative studio interior" loading="lazy" /></div>
         <div className="story-copy"><p className="eyebrow">Our philosophy</p><h2>Objects that make the everyday feel considered.</h2><p>At Astra, we believe writing instruments and desk objects should be chosen with intention. Our collections bring together tactile materials, enduring design, and quiet beauty.</p><Link href="/about" className="text-link">Our story <ArrowIcon /></Link></div>
       </section>
+
+      <StudioVideo />
 
       <section className="showcase">
         <img src={images.premiumPens} alt="Luxury fountain pen detail" loading="lazy" />
