@@ -6,6 +6,7 @@ import { Suspense, useState } from "react";
 import { products, formatPrice } from "@/data/products";
 import { readCart, writeCart } from "@/components/CartStore";
 import { ProductCard } from "@/components/ProductCard";
+import Image from "next/image";
 
 function ProductContent() {
   const params = useParams<{ id: string }>();
@@ -41,7 +42,17 @@ function ProductContent() {
       <div className="breadcrumb"><Link href="/">Home</Link> &nbsp;/&nbsp; <Link href="/shop">Shop</Link> &nbsp;/&nbsp; {product.name}</div>
       <div className="product-detail">
         <div className="product-gallery">
-          {product.images.map((image, index) => <img key={image} src={image} alt={`${product.name}${index ? ` view ${index + 1}` : ""}`} onError={(e) => { e.currentTarget.src = "/images/placeholder-stationery.svg"; }} />)}
+          {product.images.map((image, index) => (
+            <Image
+              key={image}
+              src={image}
+              alt={`${product.name}${index ? ` view ${index + 1}` : ""}`}
+              width={900}
+              height={1100}
+              sizes="(max-width: 900px) 100vw, 58vw"
+              priority={index === 0}
+            />
+          ))}
         </div>
         <div className="product-info">
           <p className="eyebrow">{product.category}</p>
