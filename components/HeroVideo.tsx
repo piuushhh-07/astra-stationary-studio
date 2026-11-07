@@ -9,7 +9,7 @@ export function HeroVideo() {
         <p>Discover thoughtfully curated stationery, considered details, and writing instruments chosen to make every day feel special.</p>
         <div className="hero-actions">
           <a href="/shop" className="button button-dark">Explore the collection</a>
-          <a href="/about" className="text-link">Discover Astra <span aria-hidden="true">↗</span></a>
+          <a href="/gallery" className="text-link">View studio gallery <span aria-hidden="true">↗</span></a>
         </div>
         <span className="hero-caption">A glimpse inside the Astra studio</span>
       </div>
