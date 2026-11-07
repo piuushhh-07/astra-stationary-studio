@@ -13,6 +13,8 @@ export default function Home() {
     ["Notebooks & Journals", images.notebook],
     ["Desk Accessories", images.desk],
     ["Gift Collections", images.stationery],
+    ["Art Supplies", images.notebook],
+    ["Planning & Organisation", images.desk],
   ];
 
   return (
