@@ -1,69 +1,79 @@
-import Image from "next/image";
+import Link from "next/link";
+import { images } from "@/data/images";
+import { products } from "@/data/products";
+import { ProductCard } from "@/components/ProductCard";
+import { ArrowIcon } from "@/components/icons";
 
 export default function Home() {
+  const featured = products.filter((product) => product.featured).slice(0, 4);
+  const categories = [
+    ["Premium Pens", images.premiumPens],
+    ["Notebooks & Journals", images.notebook],
+    ["Desk Accessories", images.desk],
+    ["Gift Collections", images.stationery],
+  ];
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      <section className="hero">
+        <img src={images.hero} alt="Elegant writing desk with premium stationery" fetchPriority="high" />
+        <div className="hero-overlay" />
+        <div className="hero-content">
+          <p className="eyebrow">Astra Stationery Studio</p>
+          <h1>The Art of Writing,<br /><em>Reimagined.</em></h1>
+          <p>Discover thoughtfully curated stationery and premium writing instruments for every word worth keeping.</p>
+          <div className="hero-actions">
+            <Link href="/shop" className="button button-light">Explore Collection</Link>
+            <Link href="/about" className="text-link-light">Discover Astra <ArrowIcon /></Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      <section className="section categories-section">
+        <div className="section-heading"><div><p className="eyebrow">Curated selections</p><h2>Discover your essentials</h2></div><Link href="/shop" className="text-link">View all <ArrowIcon /></Link></div>
+        <div className="category-grid">
+          {categories.map(([name, image]) => (
+            <Link href={`/shop?category=${encodeURIComponent(name)}`} className="category-card" key={name}>
+              <img src={image} alt="" loading="lazy" onError={(e) => { e.currentTarget.src = "/images/placeholder-stationery.svg"; }} />
+              <div><span>{name}</span><ArrowIcon /></div>
+            </Link>
+          ))}
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section className="section products-section">
+        <div className="section-heading centered"><div><p className="eyebrow">Studio favourites</p><h2>Best sellers</h2></div></div>
+        <div className="product-grid">{featured.map((product) => <ProductCard key={product.id} product={product} />)}</div>
+        <div className="section-action"><Link href="/shop" className="button button-outline">View all products</Link></div>
+      </section>
+
+      <section className="story-section">
+        <div className="story-image"><img src={images.studio} alt="Refined creative studio interior" loading="lazy" /></div>
+        <div className="story-copy"><p className="eyebrow">Our philosophy</p><h2>Objects that make the everyday feel considered.</h2><p>At Astra, we believe writing instruments and desk objects should be chosen with intention. Our collections bring together tactile materials, enduring design, and quiet beauty.</p><Link href="/about" className="text-link">Our story <ArrowIcon /></Link></div>
+      </section>
+
+      <section className="showcase">
+        <img src={images.premiumPens} alt="Luxury fountain pen detail" loading="lazy" />
+        <div><p className="eyebrow">Writing instruments</p><h2>Made for the movement of your hand.</h2><p>From smooth fountain pens to finely balanced everyday writers, each instrument is selected for comfort, precision, and lasting character.</p><Link href="/shop?category=Premium%20Pens" className="button button-light">Explore writing instruments</Link></div>
+      </section>
+
+      <section className="lifestyle-section">
+        <div><p className="eyebrow">The Astra way</p><h2>Pause. Put pen to paper.</h2></div>
+        <img src={images.lifestyle} alt="Quiet desk scene with notebook and pen" loading="lazy" />
+      </section>
+
+      <section className="values section">
+        {[["01", "Thoughtfully curated", "A concise collection chosen for function, form, and enduring appeal."], ["02", "Carefully packed", "Every order is wrapped with attention and prepared for its journey."], ["03", "Personal service", "Speak directly with our team for guidance, gifting, or product enquiries."], ["04", "Made to remain", "Timeless objects designed to be used, kept, and enjoyed for years."]].map(([num, title, copy]) => <article key={num}><span>{num}</span><h3>{title}</h3><p>{copy}</p></article>)}
+      </section>
+
+      <section className="social-section">
+        <div className="section-heading centered"><div><p className="eyebrow">Follow the studio</p><h2>@astrastationery</h2></div></div>
+        <div className="social-grid">
+          {[images.notebook, images.stationery, images.premiumPens, images.desk, images.lifestyle].map((image, index) => <a href="#" key={index} aria-label="View Instagram post"><img src={image} alt="" loading="lazy" /></a>)}
+        </div>
+      </section>
+
+      <section className="newsletter"><p className="eyebrow">Studio letters</p><h2>A quieter kind of newsletter.</h2><p>Occasional notes on writing, craft, and new arrivals.</p><form onSubmit={(e) => e.preventDefault()}><label className="sr-only" htmlFor="newsletter-email">Email address</label><input id="newsletter-email" type="email" required placeholder="Your email address" /><button className="button button-dark">Subscribe</button></form></section>
+    </>
   );
 }

@@ -1,0 +1,48 @@
+"use client";
+
+import { Suspense, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { categories, products } from "@/data/products";
+import { ProductCard } from "@/components/ProductCard";
+
+function ShopContent() {
+  const searchParams = useSearchParams();
+  const initialCategory = searchParams.get("category") || "All";
+  const [category, setCategory] = useState(categories.includes(initialCategory) ? initialCategory : "All");
+  const [query, setQuery] = useState("");
+  const [sort, setSort] = useState("featured");
+
+  const filtered = useMemo(() => {
+    let result = products.filter((product) =>
+      (category === "All" || product.category === category) &&
+      product.name.toLowerCase().includes(query.toLowerCase())
+    );
+    if (sort === "price-low") result = [...result].sort((a, b) => a.price - b.price);
+    if (sort === "price-high") result = [...result].sort((a, b) => b.price - a.price);
+    if (sort === "newest") result = [...result].sort((a, b) => Number(b.isNew) - Number(a.isNew));
+    return result;
+  }, [category, query, sort]);
+
+  return (
+    <section className="shop-page">
+      <div className="page-title"><p className="eyebrow">The collection</p><h1>Stationery for considered living</h1></div>
+      <div className="shop-toolbar">
+        <label className="sr-only" htmlFor="product-search">Search products</label>
+        <input id="product-search" type="search" placeholder="Search the collection" value={query} onChange={(e) => setQuery(e.target.value)} />
+        <select aria-label="Sort products" value={sort} onChange={(e) => setSort(e.target.value)}>
+          <option value="featured">Featured</option><option value="newest">Newest</option><option value="price-low">Price: low to high</option><option value="price-high">Price: high to low</option>
+        </select>
+      </div>
+      <div className="category-filters" aria-label="Product categories">
+        {categories.map((item) => <button key={item} className={category === item ? "active" : ""} onClick={() => setCategory(item)}>{item}</button>)}
+      </div>
+      <div className="product-grid">
+        {filtered.length ? filtered.map((product) => <ProductCard key={product.id} product={product} />) : <div className="no-results"><h2>No pieces found</h2><p>Try another search or category.</p></div>}
+      </div>
+    </section>
+  );
+}
+
+export default function ShopPage() {
+  return <Suspense fallback={<div className="shop-page"><div className="page-title"><h1>Loading collection</h1></div></div>}><ShopContent /></Suspense>;
+}

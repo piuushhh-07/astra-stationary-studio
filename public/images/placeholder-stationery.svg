@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1400" viewBox="0 0 1200 1400">
+  <rect width="1200" height="1400" fill="#efede7"/>
+  <rect x="315" y="250" width="570" height="900" rx="4" fill="#f7f5f0" stroke="#b69a65" stroke-width="8"/>
+  <path d="M600 390v610" stroke="#b69a65" stroke-width="4"/>
+  <text x="600" y="1120" text-anchor="middle" fill="#191919" font-family="serif" font-size="58">ASTRA</text>
+</svg>
