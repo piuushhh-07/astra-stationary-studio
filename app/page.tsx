@@ -7,7 +7,7 @@ import { NewsletterForm } from "@/components/NewsletterForm";
 import { HeroVideo } from "@/components/HeroVideo";
 
 export default function Home() {
-  const featured = products.filter((product) => product.featured).slice(0, 4);
+  const featured = products.filter((product) => product.featured).slice(0, 8);
   const categories = [
     ["Premium Pens", images.premiumPens],
     ["Notebooks & Journals", images.notebook],
