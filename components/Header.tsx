@@ -4,6 +4,14 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BagIcon, MenuIcon, SearchIcon, CloseIcon } from "./icons";
 
+const navigation = [
+  { href: "/", label: "Home" },
+  { href: "/shop", label: "Shop" },
+  { href: "/about", label: "Our Story" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/contact", label: "Contact" },
+];
+
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
@@ -43,38 +51,46 @@ export function Header() {
     <>
       <div className="announcement">A considered collection for the art of everyday writing</div>
       <header className="header">
-        <button className="icon-button menu-button" aria-label="Open menu" onClick={() => setMenuOpen(true)}><MenuIcon /></button>
         <Link href="/" className="brand" aria-label="Astra Stationery Studio home">
           <span>ASTRA</span>
           <small>STATIONERY STUDIO</small>
         </Link>
+
         <nav className="desktop-nav" aria-label="Main navigation">
-          <Link href="/shop">Shop</Link>
-          <Link href="/shop?category=Premium%20Pens">Writing Instruments</Link>
-          <Link href="/about">Our Story</Link>
-          <Link href="/contact">Contact</Link>
+          {navigation.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}
         </nav>
+
         <div className="header-actions">
           <Link href="/shop" aria-label="Search products" className="icon-button"><SearchIcon /></Link>
           <Link href="/cart" aria-label={`Shopping bag with ${cartCount} items`} className="icon-button bag-button">
             <BagIcon /><span>{cartCount}</span>
           </Link>
+          <button
+            className="icon-button menu-button"
+            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={menuOpen}
+            aria-controls="astra-mobile-navigation"
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? <CloseIcon /> : <MenuIcon />}
+          </button>
         </div>
       </header>
-      <div className={`mobile-menu ${menuOpen ? "open" : ""}`} aria-hidden={!menuOpen}>
+
+      <div className={`mobile-menu ${menuOpen ? "open" : ""}`} id="astra-mobile-navigation" aria-hidden={!menuOpen} inert={!menuOpen}>
         <div className="mobile-menu-head">
           <span className="brand mini"><span>ASTRA</span><small>STATIONERY STUDIO</small></span>
           <button className="icon-button" aria-label="Close menu" onClick={() => setMenuOpen(false)}><CloseIcon /></button>
         </div>
-        <nav>
-          <Link href="/shop" onClick={() => setMenuOpen(false)}>Shop all</Link>
-          <Link href="/shop?category=Premium%20Pens" onClick={() => setMenuOpen(false)}>Writing instruments</Link>
-          <Link href="/shop?category=Notebooks%20%26%20Journals" onClick={() => setMenuOpen(false)}>Notebooks & journals</Link>
-          <Link href="/about" onClick={() => setMenuOpen(false)}>Our story</Link>
-          <Link href="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
+        <nav aria-label="Mobile navigation">
+          {navigation.map((item) => (
+            <Link href={item.href} key={item.href} onClick={() => setMenuOpen(false)}>{item.label}</Link>
+          ))}
+          <Link href="/shop?category=Premium%20Pens" onClick={() => setMenuOpen(false)}>Writing Instruments</Link>
+          <Link href="/shop?category=Notebooks%20%26%20Journals" onClick={() => setMenuOpen(false)}>Notebooks &amp; Journals</Link>
         </nav>
       </div>
-      {menuOpen && <button className="menu-backdrop" aria-label="Close navigation backdrop" onClick={() => setMenuOpen(false)} />}
+      {menuOpen && <button className="menu-backdrop" aria-label="Close navigation menu" onClick={() => setMenuOpen(false)} />}
     </>
   );
 }

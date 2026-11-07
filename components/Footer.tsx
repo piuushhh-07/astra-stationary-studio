@@ -17,8 +17,8 @@ export function Footer() {
           <p className="footer-copy">Thoughtfully chosen tools for ideas, letters, and everyday rituals.</p>
         </div>
         <div className="footer-links">
-          <div><h3>Explore</h3><Link href="/shop">Shop all</Link><Link href="/shop?category=Premium%20Pens">Writing instruments</Link><Link href="/about">Our story</Link></div>
-          <div><h3>Customer care</h3><Link href="/contact">Contact us</Link><Link href="/contact">Shipping & returns</Link><Link href="/contact">Product enquiries</Link></div>
+          <div><h3>Explore</h3><Link href="/shop">Shop all</Link><Link href="/shop?category=Premium%20Pens">Writing instruments</Link><Link href="/about">Our story</Link><Link href="/gallery">Studio gallery</Link></div>
+          <div><h3>Customer care</h3><Link href="/gallery">Gallery</Link><Link href="/contact">Contact us</Link><Link href="/contact">Shipping & returns</Link><Link href="/contact">Product enquiries</Link></div>
         </div>
         <div className="footer-newsletter">
           <h3>Notes from Astra</h3>
