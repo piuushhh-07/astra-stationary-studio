@@ -16,11 +16,13 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://astrastationery.com"),
   title: {
     default: "Astra Stationery Studio | The Art of Writing",
     template: "%s | Astra Stationery Studio",
   },
   description: "Premium stationery, writing instruments, notebooks, and curated desk accessories.",
+  alternates: { canonical: "/" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

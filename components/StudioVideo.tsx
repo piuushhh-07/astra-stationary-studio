@@ -5,7 +5,7 @@ export function StudioVideo() {
         <video
           controls
           playsInline
-          preload="metadata"
+          preload="none"
           poster="/images/astra-studio-poster.jpg"
           aria-label="A short walkthrough of Astra Stationery Studio"
         >

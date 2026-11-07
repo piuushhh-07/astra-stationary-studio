@@ -1,5 +1,3 @@
-"use client";
-
 export function HeroVideo() {
   return (
     <section className="hero hero-video" aria-labelledby="hero-title">
@@ -15,12 +13,11 @@ export function HeroVideo() {
       </div>
       <div className="hero-video-frame">
         <video
-          autoPlay
           muted
           loop
           playsInline
           controls
-          preload="metadata"
+          preload="none"
           poster="/images/astra-studio-poster.jpg"
           aria-label="Video tour inside Astra Stationery Studio"
         >

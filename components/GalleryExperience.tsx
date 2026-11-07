@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type GalleryItem = {
   id: string;
@@ -100,6 +101,7 @@ const filters = ["All", "Studio film", "Studio still"];
 export function GalleryExperience() {
   const [activeFilter, setActiveFilter] = useState("All");
   const [selected, setSelected] = useState<GalleryItem | null>(null);
+  const selectedVideoRef = useRef<HTMLVideoElement>(null);
   const visibleItems = useMemo(
     () => activeFilter === "All" ? items : items.filter((item) => item.category === activeFilter),
     [activeFilter],
@@ -107,6 +109,7 @@ export function GalleryExperience() {
 
   useEffect(() => {
     if (!selected) return;
+    const selectedVideo = selectedVideoRef.current;
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") setSelected(null);
     };
@@ -115,8 +118,14 @@ export function GalleryExperience() {
     return () => {
       document.removeEventListener("keydown", closeOnEscape);
       document.body.style.overflow = "";
+      selectedVideo?.pause();
     };
   }, [selected]);
+
+  const closeGallery = () => {
+    selectedVideoRef.current?.pause();
+    setSelected(null);
+  };
 
   return (
     <div className="gallery-page">
@@ -144,7 +153,7 @@ export function GalleryExperience() {
         {visibleItems.map((item) => (
           <button className="gallery-card" key={item.id} type="button" onClick={() => setSelected(item)} aria-label={`Open ${item.kind}: ${item.title}`}>
             <span className="gallery-card-media">
-              <img src={item.poster || item.src} alt={item.alt} loading="lazy" />
+              <Image src={item.poster || item.src} alt={item.alt} fill sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 33vw" />
               {item.kind === "video" && <span className="gallery-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.8c0-.8.9-1.3 1.6-.9l9.1 5.2a1 1 0 0 1 0 1.8l-9.1 5.2c-.7.4-1.6-.1-1.6-.9V5.8Z" /></svg></span>}
             </span>
             <span className="gallery-card-copy">
@@ -165,17 +174,17 @@ export function GalleryExperience() {
       </section>
 
       {selected && (
-        <div className="gallery-modal" role="dialog" aria-modal="true" aria-label={selected.title} onClick={() => setSelected(null)}>
+        <div className="gallery-modal" role="dialog" aria-modal="true" aria-label={selected.title} onClick={closeGallery}>
           <div className="gallery-modal-inner" onClick={(event) => event.stopPropagation()}>
-            <button type="button" className="gallery-modal-close" aria-label="Close gallery viewer" onClick={() => setSelected(null)}>×</button>
+            <button type="button" className="gallery-modal-close" aria-label="Close gallery viewer" onClick={closeGallery}>×</button>
             <div className="gallery-modal-media">
               {selected.kind === "video" ? (
-                <video controls autoPlay muted playsInline preload="metadata" poster={selected.poster}>
+                <video ref={selectedVideoRef} key={selected.id} controls autoPlay muted playsInline preload="none" poster={selected.poster}>
                   <source src={selected.src} type="video/mp4" />
                   Your browser does not support embedded video.
                 </video>
               ) : (
-                <img src={selected.src} alt={selected.alt} />
+                <Image src={selected.src} alt={selected.alt} width={1080} height={1350} sizes="(max-width: 900px) 100vw, 75vw" />
               )}
             </div>
             <div className="gallery-modal-copy">

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { products, formatPrice } from "@/data/products";
 import { readCart, writeCart, type CartItem } from "@/components/CartStore";
 import { CloseIcon } from "@/components/icons";
+import Image from "next/image";
 
 export default function CartPage() {
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -31,7 +32,7 @@ export default function CartPage() {
         <div className="cart-lines">
           {lines.map((line) => line.product && (
             <div className="cart-item" key={`${line.id}-${line.variant}`}>
-              <img src={line.product.image} alt={line.product.name} onError={(e) => { e.currentTarget.src = "/images/placeholder-stationery.svg"; }} />
+              <Image src={line.product.image} alt={line.product.name} width={180} height={220} sizes="90px" />
               <div><h3>{line.product.name}</h3><p>{line.product.category}</p></div>
               <span>{formatPrice(line.product.price * line.quantity)}</span>
               <button className="remove-button" aria-label={`Remove ${line.product.name}`} onClick={() => update(cart.filter((item) => !(item.id === line.id && item.variant === line.variant)))}><CloseIcon /></button>
