@@ -1,7 +1,14 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowIcon } from "./icons";
+import type { FormEvent } from "react";
 
 export function Footer() {
+  const handleSubscribe = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    event.currentTarget.reset();
+  };
   return (
     <footer className="footer">
       <div className="footer-main">
@@ -16,14 +23,14 @@ export function Footer() {
         <div className="footer-newsletter">
           <h3>Notes from Astra</h3>
           <p>Seasonal collections, thoughtful writing, and studio news.</p>
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form onSubmit={handleSubscribe}>
             <label className="sr-only" htmlFor="footer-email">Email address</label>
             <input id="footer-email" type="email" required placeholder="Email address" />
             <button aria-label="Subscribe"><ArrowIcon /></button>
           </form>
         </div>
       </div>
-      <div className="footer-bottom"><span>© 2026 Astra Stationery Studio</span><div><a href="#" aria-label="Instagram">Instagram</a><a href="#" aria-label="WhatsApp">WhatsApp</a></div></div>
+      <div className="footer-bottom"><span>© 2026 Astra Stationery Studio</span><div><a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">Instagram</a><a href="https://wa.me/?text=Hello%20Astra" target="_blank" rel="noreferrer" aria-label="WhatsApp">WhatsApp</a></div></div>
     </footer>
   );
 }

@@ -3,6 +3,7 @@ import { images } from "@/data/images";
 import { products } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
 import { ArrowIcon } from "@/components/icons";
+import { NewsletterForm } from "@/components/NewsletterForm";
 
 export default function Home() {
   const featured = products.filter((product) => product.featured).slice(0, 4);
@@ -34,7 +35,7 @@ export default function Home() {
         <div className="category-grid">
           {categories.map(([name, image]) => (
             <Link href={`/shop?category=${encodeURIComponent(name)}`} className="category-card" key={name}>
-              <img src={image} alt="" loading="lazy" onError={(e) => { e.currentTarget.src = "/images/placeholder-stationery.svg"; }} />
+              <img src={image} alt="" loading="lazy" />
               <div><span>{name}</span><ArrowIcon /></div>
             </Link>
           ))}
@@ -69,11 +70,17 @@ export default function Home() {
       <section className="social-section">
         <div className="section-heading centered"><div><p className="eyebrow">Follow the studio</p><h2>@astrastationery</h2></div></div>
         <div className="social-grid">
-          {[images.notebook, images.stationery, images.premiumPens, images.desk, images.lifestyle].map((image, index) => <a href="#" key={index} aria-label="View Instagram post"><img src={image} alt="" loading="lazy" /></a>)}
+          {[images.notebook, images.stationery, images.premiumPens, images.desk, images.lifestyle].map((image, index) => <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" key={index} aria-label="View Instagram post"><img src={image} alt="" loading="lazy" /></a>)}
         </div>
       </section>
 
-      <section className="newsletter"><p className="eyebrow">Studio letters</p><h2>A quieter kind of newsletter.</h2><p>Occasional notes on writing, craft, and new arrivals.</p><form onSubmit={(e) => e.preventDefault()}><label className="sr-only" htmlFor="newsletter-email">Email address</label><input id="newsletter-email" type="email" required placeholder="Your email address" /><button className="button button-dark">Subscribe</button></form></section>
+      <section className="newsletter">
+        <p className="eyebrow">Studio letters</p>
+        <h2>A quieter kind of newsletter.</h2>
+        <p>Occasional notes on writing, craft, and new arrivals.</p>
+        <NewsletterForm />
+      </section>
+
     </>
   );
 }

@@ -8,7 +8,18 @@ export type CartItem = {
 
 export function readCart(): CartItem[] {
   if (typeof window === "undefined") return [];
-  try { return JSON.parse(localStorage.getItem("astra-cart") || "[]"); }
+  try {
+    const parsed = JSON.parse(localStorage.getItem("astra-cart") || "[]");
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter((item): item is CartItem =>
+      typeof item === "object" &&
+      item !== null &&
+      typeof item.id === "string" &&
+      typeof item.quantity === "number" &&
+      Number.isInteger(item.quantity) &&
+      item.quantity > 0
+    ).map((item) => ({ ...item, quantity: Math.max(1, item.quantity) }));
+  }
   catch { return []; }
 }
 

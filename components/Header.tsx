@@ -12,7 +12,9 @@ export function Header() {
     const update = () => {
       try {
         const cart = JSON.parse(localStorage.getItem("astra-cart") || "[]");
-        setCartCount(cart.reduce((sum: number, item: { quantity: number }) => sum + item.quantity, 0));
+        setCartCount(Array.isArray(cart)
+          ? cart.reduce((sum: number, item) => sum + (Number.isInteger(item?.quantity) && item.quantity > 0 ? item.quantity : 0), 0)
+          : 0);
       } catch { setCartCount(0); }
     };
     update();
@@ -23,6 +25,19 @@ export function Header() {
       window.removeEventListener("astra-cart-updated", update);
     };
   }, []);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    document.addEventListener("keydown", closeOnEscape);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", closeOnEscape);
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
 
   return (
     <>
@@ -59,7 +74,7 @@ export function Header() {
           <Link href="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
         </nav>
       </div>
-      {menuOpen && <button className="menu-backdrop" aria-label="Close menu" onClick={() => setMenuOpen(false)} />}
+      {menuOpen && <button className="menu-backdrop" aria-label="Close navigation backdrop" onClick={() => setMenuOpen(false)} />}
     </>
   );
 }

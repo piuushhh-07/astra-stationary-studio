@@ -8,14 +8,16 @@ import { ProductCard } from "@/components/ProductCard";
 function ShopContent() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get("category") || "All";
-  const [category, setCategory] = useState(categories.includes(initialCategory) ? initialCategory : "All");
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("featured");
+  const urlCategory = categories.includes(initialCategory) ? initialCategory : "All";
+  const category = selectedCategory ?? urlCategory;
 
   const filtered = useMemo(() => {
     let result = products.filter((product) =>
       (category === "All" || product.category === category) &&
-      product.name.toLowerCase().includes(query.toLowerCase())
+      (product.name + " " + product.category + " " + product.description).toLowerCase().includes(query.toLowerCase().trim())
     );
     if (sort === "price-low") result = [...result].sort((a, b) => a.price - b.price);
     if (sort === "price-high") result = [...result].sort((a, b) => b.price - a.price);
@@ -34,7 +36,7 @@ function ShopContent() {
         </select>
       </div>
       <div className="category-filters" aria-label="Product categories">
-        {categories.map((item) => <button key={item} className={category === item ? "active" : ""} onClick={() => setCategory(item)}>{item}</button>)}
+        {categories.map((item) => <button key={item} className={category === item ? "active" : ""} onClick={() => setSelectedCategory(item)}>{item}</button>)}
       </div>
       <div className="product-grid">
         {filtered.length ? filtered.map((product) => <ProductCard key={product.id} product={product} />) : <div className="no-results"><h2>No pieces found</h2><p>Try another search or category.</p></div>}
