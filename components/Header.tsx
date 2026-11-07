@@ -41,7 +41,7 @@ export function Header() {
 
   return (
     <>
-      <div className="announcement">Complimentary delivery on orders above ₹2,000</div>
+      <div className="announcement">A considered collection for the art of everyday writing</div>
       <header className="header">
         <button className="icon-button menu-button" aria-label="Open menu" onClick={() => setMenuOpen(true)}><MenuIcon /></button>
         <Link href="/" className="brand" aria-label="Astra Stationery Studio home">
